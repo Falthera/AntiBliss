@@ -15,22 +15,24 @@ repositories {
 }
 
 loom {
+    minecraft {
+        "com.mojang:minecraft:1.21.11"
+    }
+    mappings {
+        yarn "1.21.11+build.1"
+    }
     mods {
         "ihatetheblissplugin" {
             sourceSet sourceSets.main
         }
     }
-    mappings {
-        "net.fabricmc:yarn:1.21.1+build.3:v2"
-    }
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:26.1.2"
-    modImplementation "net.fabricmc:fabric-loader:0.19.3"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.154.0+26.1.2"
+    modImplementation "net.fabricmc:fabric-loader:0.16.6"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.122.0+1.21.11"
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.release = 25
+    options.release = 21
 }

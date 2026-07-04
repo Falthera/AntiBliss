@@ -21,8 +21,12 @@ repositories {
 }
 
 loom {
-    accessWidenerPath = file('src/main/resources/ihatetheblissplugin.accesswidener')
-    noIntermediateMappings = true
+    runs {
+        client {
+            configName = "Minecraft Client"
+            runDir = "run"
+        }
+    }
 }
 
 dependencies {

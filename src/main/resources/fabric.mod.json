@@ -3,16 +3,14 @@
   "id": "ihate_the_bliss",
   "version": "1.0.0",
   "name": "IHateTheBlissPlugin",
-  "description": "Fabric mod for Minecraft 26.1.2 - Exploits BlissGems PDC vulnerabilities for item forging",
+  "description": "Fabric mod for Minecraft 1.21.2 - Exploits BlissGems PDC vulnerabilities for item forging",
   "authors": ["AntiBliss"],
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "com.antibliss.hatebliss.IHateTheBlissPlugin"
-    ]
+    "main": ["com.antibliss.hatebliss.IHateTheBlissPlugin"]
   },
   "depends": {
     "fabricloader": ">=0.18.4",
-    "minecraft": "26.1.2"
+    "minecraft": ">=1.21.2"
   }
 }

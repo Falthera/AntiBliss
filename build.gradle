@@ -20,8 +20,15 @@ repositories {
     }
 }
 
+loom {
+    accessWidenerPath = file('src/main/resources/ihatetheblissplugin.accesswidener')
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:26.1.2"
+    mappings loom.layered {
+        officialMojangMappings()
+    }
     modImplementation "net.fabricmc:fabric-loader:0.18.4"
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.153.0+26.1.2"
 }

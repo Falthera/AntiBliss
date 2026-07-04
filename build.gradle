@@ -26,14 +26,11 @@ repositories {
 }
 
 loom {
-    minecraft {
-        version = '26.1.2'
-        mappings 'net.minecraft:minecraft:26.1.2'
-    }
     splitEnvironmentSourceSets()
 }
 
 dependencies {
+    minecraft "com.mojang:minecraft:26.1.2"
     compileOnly "net.fabricmc:fabric-loader:0.18.4"
     implementation "net.fabricmc.fabric-api:fabric-api:0.153.0+26.1.2"
 }

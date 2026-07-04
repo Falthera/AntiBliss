@@ -6,9 +6,11 @@ plugins {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
-archivesBaseName = project.name
 version = '1.0.0'
 group = 'com.antibliss'
+base {
+    archivesName = 'IHateTheBlissPlugin'
+}
 
 repositories {
     mavenCentral()

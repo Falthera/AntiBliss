@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 version = '1.0.0'
 group = 'com.antibliss'
@@ -20,21 +20,13 @@ repositories {
     }
 }
 
-loom {
-    runs {
-        client {
-            configName = "Minecraft Client"
-            runDir = "run"
-        }
-    }
-}
-
 dependencies {
-    minecraft "com.mojang:minecraft:26.1.2"
-    modImplementation "net.fabricmc:fabric-loader:0.18.4"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.153.0+26.1.2"
+    minecraft "com.mojang:minecraft:1.21.1"
+    mappings "net.fabricmc:fabric-mappings:1.21.1+build.3"
+    modImplementation "net.fabricmc:fabric-loader:0.16.5"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.102.0+1.21.1"
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 25
+    it.options.release = 21
 }

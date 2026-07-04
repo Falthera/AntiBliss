@@ -15,13 +15,13 @@ repositories {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.21.11"
-    mappings "net.fabricmc:yarn:1.21.11+build.1"
     modImplementation "net.fabricmc:fabric-loader:0.16.6"
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.122.0+1.21.11"
 }
 
 loom {
+    minecraft "com.mojang:minecraft:1.21.11"
+    mappings "net.fabricmc:yarn:1.21.11+build.1"
     mods {
         "ihatetheblissplugin" {
             sourceSet sourceSets.main

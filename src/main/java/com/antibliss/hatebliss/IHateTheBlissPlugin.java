@@ -13,18 +13,6 @@ import com.antibliss.hatebliss.exploit.*;
 
 public class IHateTheBlissPlugin implements ModInitializer {
 
-    private static boolean pdcBypassEnabled = false;
-    private static boolean itemDupEnabled = false;
-    private static boolean abilityAbuseEnabled = false;
-    private static boolean energyOverflowEnabled = false;
-    private static boolean gemUnlockEnabled = false;
-    private static boolean forgeUpgraderEnabled = false;
-    private static boolean forgeEnergyEnabled = false;
-    private static boolean forgeRepairEnabled = false;
-    private static boolean forgeFragmentEnabled = false;
-    private static boolean forgeTraderEnabled = false;
-    private static boolean forgeReviveEnabled = false;
-
     @Override
     public void onInitialize() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registry, environment) -> {
@@ -52,7 +40,7 @@ public class IHateTheBlissPlugin implements ModInitializer {
                             .suggest("on")
                             .suggest("off")
                             .buildFuture())
-                        .executes(context -> toggleExploit(context))));
+                        .executes(context -> toggleExploit(context)))));
         });
     }
 
@@ -64,57 +52,46 @@ public class IHateTheBlissPlugin implements ModInitializer {
 
         switch (exploit.toLowerCase()) {
             case "pdc_bypass":
-                pdcBypassEnabled = enable;
                 player.sendMessage(Text.literal(enable ? "§aPDC Bypass: ENABLED" : "§cPDC Bypass: DISABLED"));
                 if (enable) PdcBypassExploit.giveGem(player, "astra", 1);
                 return 1;
             case "item_dup":
-                itemDupEnabled = enable;
                 player.sendMessage(Text.literal(enable ? "§aItem Duplication: ENABLED" : "§cItem Duplication: DISABLED"));
                 if (enable) ItemDuplicationExploit.duplicateInventoryGems(player);
                 return 1;
             case "ability_abuse":
-                abilityAbuseEnabled = enable;
                 player.sendMessage(Text.literal(enable ? "§aAbility Abuse: ENABLED" : "§cAbility Abuse: DISABLED"));
                 if (enable) AbilityAbuseExploit.triggerAbilities(player);
                 return 1;
             case "energy_overflow":
-                energyOverflowEnabled = enable;
                 player.sendMessage(Text.literal(enable ? "§aEnergy Overflow: ENABLED (999 energy)" : "§cEnergy Overflow: DISABLED"));
                 if (enable) EnergyExploit.setMaxEnergy(player, 999);
                 return 1;
             case "gem_unlock":
-                gemUnlockEnabled = enable;
                 player.sendMessage(Text.literal(enable ? "§aGem Unlock: ENABLED (removing lock tags)" : "§cGem Unlock: DISABLED"));
                 if (enable) GemUnlockExploit.unlockAllGems(player);
                 return 1;
             case "forge_upgrader":
-                forgeUpgraderEnabled = enable;
                 player.sendMessage(Text.literal(enable ? "§aForged: Gem Upgrader (CMD 3001)" : "§cForge: Disabled"));
                 if (enable) ItemForgeryExploit.giveUpgrader(player);
                 return 1;
             case "forge_energy":
-                forgeEnergyEnabled = enable;
                 player.sendMessage(Text.literal(enable ? "§aForged: Energy Bottle (CMD 4001)" : "§cForge: Disabled"));
                 if (enable) ItemForgeryExploit.giveEnergyBottle(player);
                 return 1;
             case "forge_repair":
-                forgeRepairEnabled = enable;
                 player.sendMessage(Text.literal(enable ? "§aForged: Repair Kit (CMD 4003)" : "§cForge: Disabled"));
                 if (enable) ItemForgeryExploit.giveRepairKit(player);
                 return 1;
             case "forge_fragment":
-                forgeFragmentEnabled = enable;
                 player.sendMessage(Text.literal(enable ? "§aForged: Gem Fragment (CMD 4004)" : "§cForge: Disabled"));
                 if (enable) ItemForgeryExploit.giveGemFragment(player);
                 return 1;
             case "forge_trader":
-                forgeTraderEnabled = enable;
                 player.sendMessage(Text.literal(enable ? "§aForged: Gem Trader (CMD 4002)" : "§cForge: Disabled"));
                 if (enable) ItemForgeryExploit.giveGemTrader(player);
                 return 1;
             case "forge_revive":
-                forgeReviveEnabled = enable;
                 player.sendMessage(Text.literal(enable ? "§aForged: Revive Beacon (CMD 4005)" : "§cForge: Disabled"));
                 if (enable) ItemForgeryExploit.giveReviveBeacon(player);
                 return 1;

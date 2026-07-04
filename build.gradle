@@ -1,13 +1,18 @@
 plugins {
-    id 'fabric-loom' version '1.15.+'
-    id 'maven-publish'
     id 'java'
+    id 'net.fabricmc.fabric-loom' version '1.15.+'
+    id 'maven-publish'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
 
 version = '1.0.0'
 group = 'com.antibliss'
+
 base {
     archivesName = 'IHateTheBlissPlugin'
 }
@@ -20,13 +25,17 @@ repositories {
     }
 }
 
+loom {
+    splitEnvironmentSourceSets()
+}
+
 dependencies {
-    minecraft "com.mojang:minecraft:1.21.1"
-    mappings "net.fabricmc:fabric-mappings:1.21.1+build.3"
-    modImplementation "net.fabricmc:fabric-loader:0.16.5"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.102.0+1.21.1"
+    minecraft "com.mojang:minecraft:26.1.2"
+    mappings "net.minecraft:minecraft:26.1.2"
+    compileOnly "net.fabricmc:fabric-loader:0.18.4"
+    implementation "net.fabricmc.fabric-api:fabric-api:0.153.0+26.1.2"
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
+    options.release = 25
 }

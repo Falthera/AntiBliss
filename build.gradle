@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(24)
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 version = '1.0.0'
 group = 'com.antibliss'
@@ -22,13 +22,10 @@ repositories {
 
 dependencies {
     minecraft "com.mojang:minecraft:26.1.2"
-    mappings loom.layered {
-        officialMojangMappings()
-    }
     modImplementation "net.fabricmc:fabric-loader:0.18.4"
     modImplementation "net.fabricmc.fabric-api:fabric-api:0.153.0+26.1.2"
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 24
+    it.options.release = 25
 }

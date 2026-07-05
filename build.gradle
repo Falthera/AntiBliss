@@ -10,11 +10,6 @@ base {
     archivesName = 'IHateTheBlissPlugin'
 }
 
-repositories {
-    mavenCentral()
-    maven { url = "https://fabricmc.net" }
-}
-
 loom {
     runs {
         client {

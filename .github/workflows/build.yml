@@ -21,12 +21,16 @@ jobs:
           distribution: 'microsoft'
           java-version: '21'
           cache: 'gradle'
-       
-      - name: Make Gradle wrapper executable
-        run: chmod +x gradlew
+        
+      - name: Setup Gradle 9.2
+        run: |
+          curl -sSL https://services.gradle.org/distributions/gradle-9.2-bin.zip -o gradle-9.2-bin.zip
+          unzip -q gradle-9.2-bin.zip
+          echo "GRADLE_HOME=$(pwd)/gradle-9.2" >> $GITHUB_ENV
+          echo "$(pwd)/gradle-9.2/bin" >> $GITHUB_PATH
        
       - name: Build
-        run: ./gradlew assemble --refresh-dependencies --no-daemon
+        run: gradle assemble --refresh-dependencies --no-daemon
       
       - name: Upload JAR
         uses: actions/upload-artifact@v4

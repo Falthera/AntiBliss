@@ -2,7 +2,7 @@ package com.antibliss.hatebliss;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.ServerPlayer;
 import net.minecraft.network.chat.Component;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;

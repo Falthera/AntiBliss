@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version '1.6.64'
+    id 'fabric-loom' version '1.6.32'
     id 'maven-publish'
 }
 

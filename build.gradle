@@ -1,16 +1,7 @@
-buildscript {
-    repositories {
-        maven { url 'https://maven.fabricmc.net/' }
-        gradlePluginPortal()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'net.fabricmc:fabric-loom:1.6.32'
-    }
+plugins {
+    id 'net.fabricmc.fabric-loom' version '1.14'
+    id 'maven-publish'
 }
-
-apply plugin: 'fabric-loom'
-apply plugin: 'maven-publish'
 
 version = '1.0.0'
 group = 'com.antibliss'

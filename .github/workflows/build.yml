@@ -15,11 +15,11 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Setup Java 25 and Gradle
+      - name: Setup Java 21 and Gradle
         uses: actions/setup-java@v4
         with:
           distribution: 'microsoft'
-          java-version: '25'
+          java-version: '21'
           cache: 'gradle'
       
       - name: Build

@@ -2,22 +2,22 @@ package com.antibliss.hatebliss;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.chat.Component;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.CommandSourceStack;
 import com.antibliss.hatebliss.exploit.*;
 
 public class IHateTheBlissPlugin implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        CommandRegistrationCallback.EVENT.register((dispatcher, registry, environment) -> {
-            dispatcher.register(CommandManager.literal("antibliss")
-                .then(CommandManager.argument("exploit", StringArgumentType.word())
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+            dispatcher.register(Commands.literal("antibliss")
+                .then(Commands.argument("exploit", StringArgumentType.word())
                     .suggests((context, builder) -> builder
                         .suggest("pdc_bypass")
                         .suggest("item_dup")
@@ -35,7 +35,7 @@ public class IHateTheBlissPlugin implements ModInitializer {
                         .suggest("giveitem")
                         .suggest("unlimited_all")
                         .buildFuture())
-                    .then(CommandManager.argument("state", StringArgumentType.word())
+                        .then(Commands.argument("state", StringArgumentType.word())
                         .suggests((context, builder) -> builder
                             .suggest("on")
                             .suggest("off")
@@ -44,64 +44,64 @@ public class IHateTheBlissPlugin implements ModInitializer {
         });
     }
 
-    private static int toggleExploit(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    private static int toggleExploit(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         String exploit = context.getArgument("exploit", String.class);
         String state = context.getArgument("state", String.class);
-        ServerPlayerEntity player = context.getSource().getPlayerOrThrow();
+        ServerPlayer player = context.getSource().getPlayerOrThrow();
         boolean enable = state.equalsIgnoreCase("on");
 
         switch (exploit.toLowerCase()) {
             case "pdc_bypass":
-                player.sendMessage(Text.literal(enable ? "§aPDC Bypass: ENABLED" : "§cPDC Bypass: DISABLED"));
+                player.sendMessage(Component.literal(enable ? "§aPDC Bypass: ENABLED" : "§cPDC Bypass: DISABLED"));
                 if (enable) PdcBypassExploit.giveGem(player, "astra", 1);
                 return 1;
             case "item_dup":
-                player.sendMessage(Text.literal(enable ? "§aItem Duplication: ENABLED" : "§cItem Duplication: DISABLED"));
+                player.sendMessage(Component.literal(enable ? "§aItem Duplication: ENABLED" : "§cItem Duplication: DISABLED"));
                 if (enable) ItemDuplicationExploit.duplicateInventoryGems(player);
                 return 1;
             case "ability_abuse":
-                player.sendMessage(Text.literal(enable ? "§aAbility Abuse: ENABLED" : "§cAbility Abuse: DISABLED"));
+                player.sendMessage(Component.literal(enable ? "§aAbility Abuse: ENABLED" : "§cAbility Abuse: DISABLED"));
                 if (enable) AbilityAbuseExploit.triggerAbilities(player);
                 return 1;
             case "energy_overflow":
-                player.sendMessage(Text.literal(enable ? "§aEnergy Overflow: ENABLED (999 energy)" : "§cEnergy Overflow: DISABLED"));
+                player.sendMessage(Component.literal(enable ? "§aEnergy Overflow: ENABLED (999 energy)" : "§cEnergy Overflow: DISABLED"));
                 if (enable) EnergyExploit.setMaxEnergy(player, 999);
                 return 1;
             case "gem_unlock":
-                player.sendMessage(Text.literal(enable ? "§aGem Unlock: ENABLED (removing lock tags)" : "§cGem Unlock: DISABLED"));
+                player.sendMessage(Component.literal(enable ? "§aGem Unlock: ENABLED (removing lock tags)" : "§cGem Unlock: DISABLED"));
                 if (enable) GemUnlockExploit.unlockAllGems(player);
                 return 1;
             case "forge_upgrader":
-                player.sendMessage(Text.literal(enable ? "§aForged: Gem Upgrader (CMD 3001)" : "§cForge: Disabled"));
+                player.sendMessage(Component.literal(enable ? "§aForged: Gem Upgrader (CMD 3001)" : "§cForge: Disabled"));
                 if (enable) ItemForgeryExploit.giveUpgrader(player);
                 return 1;
             case "forge_energy":
-                player.sendMessage(Text.literal(enable ? "§aForged: Energy Bottle (CMD 4001)" : "§cForge: Disabled"));
+                player.sendMessage(Component.literal(enable ? "§aForged: Energy Bottle (CMD 4001)" : "§cForge: Disabled"));
                 if (enable) ItemForgeryExploit.giveEnergyBottle(player);
                 return 1;
             case "forge_repair":
-                player.sendMessage(Text.literal(enable ? "§aForged: Repair Kit (CMD 4003)" : "§cForge: Disabled"));
+                player.sendMessage(Component.literal(enable ? "§aForged: Repair Kit (CMD 4003)" : "§cForge: Disabled"));
                 if (enable) ItemForgeryExploit.giveRepairKit(player);
                 return 1;
             case "forge_fragment":
-                player.sendMessage(Text.literal(enable ? "§aForged: Gem Fragment (CMD 4004)" : "§cForge: Disabled"));
+                player.sendMessage(Component.literal(enable ? "§aForged: Gem Fragment (CMD 4004)" : "§cForge: Disabled"));
                 if (enable) ItemForgeryExploit.giveGemFragment(player);
                 return 1;
             case "forge_trader":
-                player.sendMessage(Text.literal(enable ? "§aForged: Gem Trader (CMD 4002)" : "§cForge: Disabled"));
+                player.sendMessage(Component.literal(enable ? "§aForged: Gem Trader (CMD 4002)" : "§cForge: Disabled"));
                 if (enable) ItemForgeryExploit.giveGemTrader(player);
                 return 1;
             case "forge_revive":
-                player.sendMessage(Text.literal(enable ? "§aForged: Revive Beacon (CMD 4005)" : "§cForge: Disabled"));
+                player.sendMessage(Component.literal(enable ? "§aForged: Revive Beacon (CMD 4005)" : "§cForge: Disabled"));
                 if (enable) ItemForgeryExploit.giveReviveBeacon(player);
                 return 1;
             case "forge_all_gems":
                 ItemForgeryExploit.giveAllGems(player);
-                player.sendMessage(Text.literal("§aForged ALL gem types Tier 1"));
+                player.sendMessage(Component.literal("§aForged ALL gem types Tier 1"));
                 return 1;
             case "dup_all_gems":
                 ItemDuplicationExploit.duplicateAllGems(player, 64);
-                player.sendMessage(Text.literal("§cDuplicated ALL gems x64"));
+                player.sendMessage(Component.literal("§cDuplicated ALL gems x64"));
                 return 1;
             case "giveitem":
                 GiveItemExploit.unlimitedGiveitem(player);
@@ -110,10 +110,10 @@ public class IHateTheBlissPlugin implements ModInitializer {
                 GiveItemExploit.unlimitedGiveitem(player);
                 ItemForgeryExploit.giveAllGems(player);
                 EnergyExploit.setMaxEnergy(player, 999);
-                player.sendMessage(Text.literal("§cFull exploit combo: giveitem bypass + all gems + energy overflow"));
+                player.sendMessage(Component.literal("§cFull exploit combo: giveitem bypass + all gems + energy overflow"));
                 return 1;
             default:
-                player.sendMessage(Text.literal("§cUnknown exploit"));
+                player.sendMessage(Component.literal("§cUnknown exploit"));
                 return 0;
         }
     }

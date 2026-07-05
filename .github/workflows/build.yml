@@ -23,7 +23,7 @@ jobs:
           cache: 'gradle'
       
       - name: Build
-        run: ./gradlew build --refresh-dependencies
+        run: gradle build --refresh-dependencies
       
       - name: Upload JAR
         uses: actions/upload-artifact@v4
